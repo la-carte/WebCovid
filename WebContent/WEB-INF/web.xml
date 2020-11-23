@@ -11,9 +11,18 @@
 		<welcome-file>default.html</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>accueil.jsp</welcome-file>
+		<welcome-file>connexion.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>InscriptionServlet</servlet-name>
 		<servlet-class>ServletPackage.InscriptionServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ConnexionServlet</servlet-name>
+		<servlet-class>ServletPackage.ConnexionServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BeanServlet</servlet-name>
+		<servlet-class>ServletPackage.BeanServlet</servlet-class>
 	</servlet>
 </web-app>
