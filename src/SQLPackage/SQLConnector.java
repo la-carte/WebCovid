@@ -90,11 +90,12 @@ public class SQLConnector {
 		   affiche("connexion a la base de données");
 		   
 		   try {
-		         String DBurl = "jdbc:mysql://localhost/Jee_database";
-		         con = DriverManager.getConnection(DBurl,"projetTest","projetTest");
+		         String DBurl = "jdbc:mysql://localhost:3306/user_database?zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=UTC";
+		         con = DriverManager.getConnection(DBurl,"root","motdepasse");
 		         affiche("connexion réussie");
 		   } 
 		   catch (SQLException e) {
+			   System.out.println(e);
 		         arret("Connection à la base de données impossible");
 		   }
 		   
