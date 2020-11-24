@@ -29,7 +29,7 @@ public class BeanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-response.setContentType("text/html");	
+		response.setContentType("text/html");	
 		
 		HttpSession session = request.getSession();
 		
@@ -37,15 +37,15 @@ response.setContentType("text/html");
 		
 		if(current_user == null) {
 			
-			request.getRequestDispatcher( "/JSP_pages/accueil.jsp" ).forward( request, response );
+			request.getRequestDispatcher( "/JSP_Pages/accueil.jsp" ).forward( request, response );
 		}
 		else{
 			if(current_user.getRang().trim().equals("basic_user")) {
-				request.getRequestDispatcher( "/JSP_pages/user.jsp" ).forward( request, response );
+				request.getRequestDispatcher( "/JSP_Pages/user.jsp" ).forward( request, response );
 			}
 			else {
 				if(current_user.getRang().trim().equals("admin")) {
-					request.getRequestDispatcher( "/JSP_pages/admin.jsp" ).forward( request, response );
+					request.getRequestDispatcher( "/JSP_Pages/admin.jsp" ).forward( request, response );
 				}
 			}
 		}

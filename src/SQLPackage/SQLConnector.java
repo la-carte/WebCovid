@@ -28,7 +28,7 @@ public class SQLConnector {
 					   user.setNom(res.getString("nom"));
 					   user.setPrenom(res.getString("prenom"));
 					   user.setRang(res.getString("role"));
-					   user.setDate(res.getString("date"));
+					   user.setDate(res.getString("date_birth"));
 					   i++;
 				   }
 				   else {

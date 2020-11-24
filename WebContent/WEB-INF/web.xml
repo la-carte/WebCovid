@@ -12,6 +12,8 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>accueil.jsp</welcome-file>
 		<welcome-file>connexion.jsp</welcome-file>
+		<welcome-file>admin.jsp</welcome-file>
+		<welcome-file>user.jsp</welcome-file>
 	</welcome-file-list>
 	<servlet>
 		<servlet-name>InscriptionServlet</servlet-name>
@@ -25,4 +27,10 @@
 		<servlet-name>BeanServlet</servlet-name>
 		<servlet-class>ServletPackage.BeanServlet</servlet-class>
 	</servlet>
+	
+	<servlet-mapping>
+    <servlet-name>BeanServlet</servlet-name>
+    <url-pattern>/beanServlet</url-pattern>
+</servlet-mapping>
+	
 </web-app>
