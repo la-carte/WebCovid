@@ -8,5 +8,9 @@
 </head>
 <body>
 <h1>You are logged in USER</h1>
+
+<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/profil.jsp">
+<button type="submit">Mon profil</button>
+</form>
 </body>
 </html>

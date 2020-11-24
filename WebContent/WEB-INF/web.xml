@@ -28,9 +28,4 @@
 		<servlet-class>ServletPackage.BeanServlet</servlet-class>
 	</servlet>
 	
-	<servlet-mapping>
-    <servlet-name>BeanServlet</servlet-name>
-    <url-pattern>/beanServlet</url-pattern>
-</servlet-mapping>
-	
 </web-app>

@@ -34,7 +34,7 @@
 			<button type="submit">Submit</button>
 	</form>
 			
-	<form method="post" action="connexion.jsp">
+	<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/connexion.jsp">
 		<button type="submit">Se connecter</button>
 	</form>
 

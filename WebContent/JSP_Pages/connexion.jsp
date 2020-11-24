@@ -18,5 +18,9 @@
 			
 			<button type="submit">Submit</button>
 	</form>
+	
+	<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/accueil.jsp">
+		<button type="submit">Accueil</button>
+	</form>
 </body>
 </html>
