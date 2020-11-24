@@ -61,7 +61,7 @@ public class ConnexionServlet extends HttpServlet {
 		
 		
 		
-		response.sendRedirect("/projetTest/bean_servlet");
+		response.sendRedirect("/WebCovid/BeanServlet");
 
 	}
 

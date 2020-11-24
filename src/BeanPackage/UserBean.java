@@ -7,7 +7,7 @@ public class UserBean {
 	private String rang;
 	private String password;
 	private String login;
-	private String date;
+	private String date_birth;
 
 	public int getId() {
 		return this.id;
@@ -58,11 +58,11 @@ public class UserBean {
 	}
 
 	public String getDate() {
-		return date;
+		return date_birth;
 	}
 
 	public void setDate(String date) {
-		this.date = date;
+		this.date_birth = date;
 	}
 
 }

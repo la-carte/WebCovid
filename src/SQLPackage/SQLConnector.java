@@ -52,8 +52,8 @@ public class SQLConnector {
 		   
 		    try {
 		    	Statement stmt = con.createStatement();
-		    	String rqString = "INSERT INTO User (role,login,password,nom,prenom) VALUES ('basic_user','"+
-						   login+"','"+password+"','"+prenom+"','"+nom+"')";
+		    	String rqString = "INSERT INTO User (role,login,password,nom,prenom,date_birth) VALUES ('basic_user','"+
+						   login+"','"+password+"','"+prenom+"','"+nom+"','"+date+"')";
 				stmt.executeUpdate(rqString);
 			} 
 		    catch (SQLException e) {
