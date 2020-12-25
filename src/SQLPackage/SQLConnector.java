@@ -2,6 +2,7 @@ package SQLPackage;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,6 +46,34 @@ public class SQLConnector {
 		   
 		   return user;
 	   }
+	
+	public void setUser(String old_login,String login, String password, String name, String surname, String date) {
+		Connection con = connect();
+		
+		try {
+			 // create our java preparedstatement using a sql update query
+		    PreparedStatement ps = con.prepareStatement(
+		      "UPDATE User SET login = ?, password = ?, nom = ?, prenom = ?, date_birth = ? WHERE login = ?");
+
+		    // set the preparedstatement parameters
+		    ps.setString(1,login);
+		    ps.setString(2,password);
+		    ps.setString(3,name);
+		    ps.setString(4,surname);
+		    ps.setString(5,date);
+		    ps.setString(6, old_login);
+
+		    // call executeUpdate to execute our sql update statement
+		    ps.executeUpdate();
+		    ps.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
 	   
 	public void createUser(String login, String password, String nom, String prenom, String date) {
 		

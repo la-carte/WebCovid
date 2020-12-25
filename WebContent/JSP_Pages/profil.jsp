@@ -20,5 +20,9 @@ Prénom : <%= current_user.getPrenom() %><br>
 
 Date de Naissance : <%= current_user.getDate() %><br>
 
+<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/modificationProfil.jsp">
+		<button type="submit">Modifier le profil</button>
+</form>
+
 </body>
 </html>
