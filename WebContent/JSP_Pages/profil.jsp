@@ -26,6 +26,9 @@ Date de Naissance : <%= current_user.getDate() %><br>
 <form method="post" action="${pageContext.request.contextPath}/DeconnexionServlet">
 		<button type="submit">Deconnexion</button>
 </form>
+<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/ajoutAmis.jsp">
+		<button type="submit">Ajouter des amis</button>
+</form>
 
 </body>
 </html>

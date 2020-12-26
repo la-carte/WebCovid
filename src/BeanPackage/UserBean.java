@@ -1,5 +1,7 @@
 package BeanPackage;
 
+import java.util.ArrayList;
+
 public class UserBean {
 	private int id;
 	private String nom;
@@ -8,6 +10,15 @@ public class UserBean {
 	private String password;
 	private String login;
 	private String date_birth;
+	private ArrayList<String> amis = new ArrayList<>();
+
+	public ArrayList<String> getAmis() {
+		return amis;
+	}
+
+	public void setAmis(ArrayList<String> amis) {
+		this.amis = amis;
+	}
 
 	public int getId() {
 		return this.id;
@@ -63,6 +74,14 @@ public class UserBean {
 
 	public void setDate(String date) {
 		this.date_birth = date;
+	}
+	
+	public void ajouterAmi(String login) {
+		this.amis.add(login);
+	}
+	
+	public void retirerAmi(String login) {
+		this.amis.remove(login);
 	}
 
 }

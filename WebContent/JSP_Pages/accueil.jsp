@@ -8,7 +8,8 @@
 </head>
 <body>
 	<h1>Bienvenue sur le site web Covid</h1>
-	
+	<jsp:useBean id="current_user" class="BeanPackage.UserBean" scope="session"/>
+	<%@ taglib prefix='c' uri='http://java.sun.com/jsp/jstl/core' %>
 	
 	<form method="post" action="${pageContext.request.contextPath}/InscriptionServlet">
 		<label for="login">Login</label>
@@ -33,10 +34,21 @@
 		
 			<button type="submit">Submit</button>
 	</form>
-			
-	<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/connexion.jsp">
+
+	
+	<%! String name = ""; %>
+	<%= name = current_user.getLogin()%>
+	
+	<%if (name == null){%>
+		<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/connexion.jsp">
 		<button type="submit">Se connecter</button>
-	</form>
+		</form>
+	<%}%>
+	<%if(name != null){%>
+		<form method="post" action="${pageContext.request.contextPath}/DeconnexionServlet">
+		<button type="submit">Deconnexion</button>
+		</form>
+	<%}%>
 
 </body>
 </html>
