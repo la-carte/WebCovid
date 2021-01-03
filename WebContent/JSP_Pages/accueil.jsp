@@ -36,15 +36,17 @@
 	</form>
 
 	
-	<%! String name = ""; %>
-	<%= name = current_user.getLogin()%>
+
+	<% if(current_user.isNotifiedCovid()){%>
+		<b>Un ami à vous a la covid-19 !</b>
+	<%} %>
 	
-	<%if (name == null){%>
+	<%if (current_user.getLogin() == null){%>
 		<form method="post" action="${pageContext.request.contextPath}/JSP_Pages/connexion.jsp">
 		<button type="submit">Se connecter</button>
 		</form>
 	<%}%>
-	<%if(name != null){%>
+	<%if(current_user.getLogin() != null){%> 
 		<form method="post" action="${pageContext.request.contextPath}/DeconnexionServlet">
 		<button type="submit">Deconnexion</button>
 		</form>
