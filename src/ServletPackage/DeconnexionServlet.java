@@ -27,8 +27,9 @@ public class DeconnexionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		session.invalidate();
+		response.sendRedirect("/WebCovid/JSP_Pages/accueil.jsp");
 	}
 
 	/**
@@ -37,7 +38,7 @@ public class DeconnexionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		response.sendRedirect("/WebCovid/BeanServlet");
+		response.sendRedirect("/WebCovid/JSP_Pages/accueil.jsp");
 	}
 
 }

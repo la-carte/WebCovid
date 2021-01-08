@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class UserBean {
-	private int id;
 	private String nom;
 	private String prenom;
 	private String rang;
@@ -13,12 +12,29 @@ public class UserBean {
 	private String login;
 	private String date_birth;
 	private ArrayList<String> friendsRequest = new ArrayList<>();
-	private ArrayList<String> friends = new ArrayList<>();
-	private boolean notifiedCovid = false;
+	private ArrayList<UserBean> friends = new ArrayList<>();
+	private ArrayList<Activities> activities = new ArrayList<>();
+	private boolean toCovid = false;
+	
 
+	public UserBean() {
+	}
+
+	public UserBean(String login) {
+		this.login = login;
+		toCovid = false;
+	}
 	
 	
-	
+
+	public ArrayList<Activities> getActivities() {
+		return activities;
+	}
+
+	public void setActivities(ArrayList<Activities> activities) {
+		this.activities = activities;
+	}
+
 	public ArrayList<String> getFriendsRequest() {
 		return friendsRequest;
 	}
@@ -27,24 +43,20 @@ public class UserBean {
 		this.friendsRequest = friendsRequest;
 	}
 
-	public ArrayList<String> getFriends() {
+	public ArrayList<UserBean> getFriends() {
 		return friends;
 	}
 
-	public void setFriends(ArrayList<String> friends) {
+	public void setFriends(ArrayList<UserBean> friends) {
 		this.friends = friends;
 	}
 
-	public boolean isNotifiedCovid() {
-		return notifiedCovid;
+	public boolean isToCovid() {
+		return toCovid;
 	}
 
-	public void setNotifiedCovid(boolean notified) {
-		this.notifiedCovid = notified;
-	}
-
-	public int getId() {
-		return this.id;
+	public void setToCovid(boolean notified) {
+		this.toCovid = notified;
 	}
 
 	public String getNom() {
@@ -67,9 +79,6 @@ public class UserBean {
 		return this.rang;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public void setNom(String nom) {
 		this.nom = nom;

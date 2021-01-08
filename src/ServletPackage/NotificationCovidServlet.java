@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import BeanPackage.Friend;
 import BeanPackage.UserBean;
 import SQLPackage.SQLConnector;
 
@@ -42,14 +40,14 @@ public class NotificationCovidServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//Mettre le toCovid du current_user à 1 dans la base de données 
 		HttpSession session = request.getSession();
 		SQLConnector sc = new SQLConnector();
 		UserBean user = (UserBean) session.getAttribute("current_user");
-		for(String login : user.getFriends()) {
-			UserBean ami = sc.getUser(login);
-			ami.setNotifiedCovid(true);
-		}
-		doGet(request, response);
+		sc.makeCovid(user.getLogin());
+			
+		response.sendRedirect("/WebCovid/JSP_Pages/profil.jsp");
 		
 	}
 

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import BeanPackage.UserBean;
 
@@ -26,10 +27,14 @@ public class SQLConnector {
 					user = new UserBean();
 					user.setLogin(res.getString("login"));
 					user.setPassword(res.getString("password"));
-					user.setNom(res.getString("nom"));
-					user.setPrenom(res.getString("prenom"));
+					user.setNom(res.getString("name"));
+					user.setPrenom(res.getString("surname"));
 					user.setRang(res.getString("role"));
-					user.setDate(res.getString("date_birth"));
+					user.setDate(res.getString("dateBirth"));
+					if (res.getInt("toCovid") == 0)
+						user.setToCovid(false);
+					else
+						user.setToCovid(true);
 					i++;
 				} else {
 					i++;
@@ -45,31 +50,48 @@ public class SQLConnector {
 		return user;
 	}
 
-	public String getFriend(String login) {
-
-		String user = null;
-
-		String rqString = "Select login from User where login='" + login + "';";
+	public ArrayList<UserBean> getFriends(String loginUser) {
+		ArrayList<UserBean> friends = new ArrayList<>();
+		Connection con = connect();
+		// select * from user_database.friend where login="lala" and test="lala"
+		String rqString = "Select loginUser from friend where loginFriend='" + loginUser + "' and isFriend=1";
 		ResultSet res = doRequest(rqString);
+		int i = 0;
 		try {
-			if (res.next()) {
-				user = res.getString("login");
-			} else {
-				arret("Pas d'utilisateur avec ce login");
+			while (res.next()) {
+				UserBean friend = new UserBean(res.getString("loginUser"));
+				friends.add(friend);
+				i++;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return user;
+		return friends;
+	}
+
+	public void makeCovid(String login) {
+		Connection con = connect();
+
+		try {
+			// create our java preparedstatement using a sql update query
+			PreparedStatement ps = con.prepareStatement("UPDATE user SET toCovid = 1 WHERE login ='" + login + "'");
+
+			// call executeUpdate to execute our sql update statement
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public UserBean getUser(String login) {
 
 		UserBean user = null;
 
-		String rqString = "Select * from User where login='" + login + "';";
+		String rqString = "Select * from user where login='" + login + "';";
 		ResultSet res = doRequest(rqString);
 		int i = 0;
 		try {
@@ -78,16 +100,16 @@ public class SQLConnector {
 					user = new UserBean();
 					user.setLogin(res.getString("login"));
 					user.setPassword(res.getString("password"));
-					user.setNom(res.getString("nom"));
-					user.setPrenom(res.getString("prenom"));
+					user.setNom(res.getString("name"));
+					user.setPrenom(res.getString("surname"));
 					user.setRang(res.getString("role"));
-					user.setDate(res.getString("date_birth"));
+					user.setDate(res.getString("dateBirth"));
+					if (res.getInt("toCovid") == 0)
+						user.setToCovid(false);
+					else
+						user.setToCovid(true);
 					i++;
-				} else {
-					i++;
-					arret("Plus d'un utilisateur ayant le meme login ???");
 				}
-
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -97,13 +119,59 @@ public class SQLConnector {
 		return user;
 	}
 
-	public void addFriendRequest(String login) {
+	public ArrayList<String> getFriendRequest(String loginUser) {
+		ArrayList<String> friends = new ArrayList<>();
+		Connection con = connect();
+		// select * from user_database.friend where login="lala" and test="lala"
+		String rqString = "Select loginUser from friend where loginFriend='" + loginUser + "' and isFriend=0";
+		ResultSet res = doRequest(rqString);
+		int i = 0;
+		try {
+			while (res.next()) {
+				if (i == 0) {
+					friends.add(res.getString("loginUser"));
+					i++;
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return friends;
+	}
+
+	public void addFriend(String loginFriend, String loginUser) {
+		// mettre le booleen à 1
+		// ajouter une ligne avec l'inverse de celle de base
+		Connection con = connect();
+
+		try {
+			// create our java preparedstatement using a sql update query
+			PreparedStatement ps = con.prepareStatement("UPDATE friend SET isFriend = 1 WHERE loginFriend ='"
+					+ loginUser + "' AND loginUser='" + loginFriend + "'");
+			PreparedStatement pss = con.prepareStatement("INSERT INTO friend (loginUser,loginFriend,isFriend) VALUES ('"
+					+ loginUser + "','" + loginFriend + "', 1)");
+			// call executeUpdate to execute our sql update statement
+			ps.executeUpdate();
+			ps.close();
+			pss.executeUpdate();
+			pss.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void addFriendRequest(String loginFriend, String loginUser) {
 
 		Connection con = connect();
 
 		try {
 			Statement stmt = con.createStatement();
-			String rqString = "INSERT INTO requestfriend (login) VALUES (" + login + "')";
+			String rqString = "INSERT INTO friend (loginUser,loginFriend,isFriend) VALUES ('" + loginUser + "','"
+					+ loginFriend + "', 0)";
 			stmt.executeUpdate(rqString);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,7 +185,7 @@ public class SQLConnector {
 		try {
 			// create our java preparedstatement using a sql update query
 			PreparedStatement ps = con.prepareStatement(
-					"UPDATE User SET login = ?, password = ?, nom = ?, prenom = ?, date_birth = ? WHERE login = ?");
+					"UPDATE User SET login = ?, password = ?, name = ?, surname = ?, dateBirth = ? WHERE login = ?");
 
 			// set the preparedstatement parameters
 			ps.setString(1, login);
@@ -142,7 +210,7 @@ public class SQLConnector {
 
 		try {
 			Statement stmt = con.createStatement();
-			String rqString = "INSERT INTO User (role,login,password,nom,prenom,date_birth) VALUES ('basic_user','"
+			String rqString = "INSERT INTO User (role,toCovid,login,password,name,surname,dateBirth) VALUES ('basic_user', '0', '"
 					+ login + "','" + password + "','" + prenom + "','" + nom + "','" + date + "')";
 			stmt.executeUpdate(rqString);
 		} catch (SQLException e) {
@@ -162,7 +230,7 @@ public class SQLConnector {
 
 		return results;
 	}
-	
+
 	public void notifyFriend(String login) {
 		Connection con = connect();
 
@@ -199,6 +267,21 @@ public class SQLConnector {
 		return con;
 	}
 
+	public void createActivity(String login,String name, String date, String begin, String end) {
+		Connection con = connect();
+
+		try {
+			Statement stmt = con.createStatement();
+			String rqString = "INSERT INTO activity (name,date,begin,end,login) VALUES ('" + name + "','" + date + "','"
+					+ begin + "','" + end +"','" + login + "')";
+			stmt.executeUpdate(rqString);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+
 	private static void affiche(String message) {
 		System.out.println(message);
 	}
@@ -207,7 +290,5 @@ public class SQLConnector {
 		System.err.println(message);
 		System.exit(99);
 	}
-	
-	
 
 }

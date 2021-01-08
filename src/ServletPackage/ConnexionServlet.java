@@ -1,6 +1,8 @@
 package ServletPackage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import BeanPackage.Activities;
 import BeanPackage.UserBean;
 import SQLPackage.SQLConnector;
 
@@ -45,11 +48,25 @@ public class ConnexionServlet extends HttpServlet {
 		
 		
 		SQLConnector sc = new SQLConnector();
-		
+		ArrayList<String> friendsRequest = new ArrayList<>();
+		ArrayList<UserBean> friends = new ArrayList<>();
+		ArrayList<Activities> activities = new ArrayList<>();
 		if((login != "") && (login != null) && (password != "") && (password != null) ) {
 			
 			
 			UserBean current_user = sc.getUser(login,password);
+			
+			friendsRequest= sc.getFriendRequest(current_user.getLogin());
+			for(String friend : friendsRequest) {
+				current_user.getFriendsRequest().add(friend);
+			}
+			friends = sc.getFriends(current_user.getLogin());
+			for(UserBean friend : friends) {
+				current_user.getFriends().add(friend);
+			}
+			
+			//activities = sc.getActivities(current_user.getLogin());
+			
 
 			session.setAttribute("current_user",current_user);
 			request.setAttribute("current_user",current_user);

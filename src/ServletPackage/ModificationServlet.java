@@ -67,7 +67,7 @@ public class ModificationServlet extends HttpServlet {
 
 		}
 
-		response.sendRedirect("/WebCovid/BeanServlet");
+		response.sendRedirect("/WebCovid/JSP_Pages/profil.jsp");
 	}
 
 }
