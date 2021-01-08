@@ -65,7 +65,10 @@ public class ConnexionServlet extends HttpServlet {
 				current_user.getFriends().add(friend);
 			}
 			
-			//activities = sc.getActivities(current_user.getLogin());
+			activities = sc.getActivities(current_user.getLogin());
+			for(Activities activity : activities) {
+				current_user.getActivities().add(activity);
+			}
 			
 
 			session.setAttribute("current_user",current_user);

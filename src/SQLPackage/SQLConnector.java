@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import BeanPackage.Activities;
 import BeanPackage.UserBean;
 
 public class SQLConnector {
@@ -279,6 +280,34 @@ public class SQLConnector {
 			e.printStackTrace();
 		}
 	}
+	
+	public ArrayList<Activities> getActivities(String login){
+		ArrayList<Activities> activities = new ArrayList<>();
+		Connection con = connect();
+		Activities a = new Activities();
+		String rqString = "Select * from activity where login='" + login + "'";
+		ResultSet res = doRequest(rqString);
+		
+		int i = 0;
+		try {
+			while (res.next()) {
+					a = new Activities();
+					a.setName(res.getString("name"));
+					a.setDate(res.getString("date"));
+					a.setHdebut(res.getString("begin"));
+					a.setHfin(res.getString("end"));
+					activities.add(a);
+					System.out.println(i);
+					i++;
+				}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	return activities;
+	}
+
 	
 
 

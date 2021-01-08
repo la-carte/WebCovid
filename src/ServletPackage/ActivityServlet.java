@@ -1,6 +1,8 @@
 package ServletPackage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import BeanPackage.Activities;
 import BeanPackage.UserBean;
 import SQLPackage.SQLConnector;
 
@@ -43,7 +46,7 @@ public class ActivityServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		ArrayList<Activities> activities = new ArrayList<>();
 		String name = request.getParameter("name");
 		String date = request.getParameter("date");
 		String begin = request.getParameter("timeBegin");
@@ -55,7 +58,13 @@ public class ActivityServlet extends HttpServlet {
 		UserBean current_user = (UserBean) session.getAttribute("current_user");
 		if ((name != "") && (name != null) && (date != "") && (date != null)) {
 			sc.createActivity(current_user.getLogin(), name, date, begin, end);
-			doGet(request, response);
+			activities = sc.getActivities(current_user.getLogin());
+			for(Activities activity : activities) {
+				current_user.getActivities().add(activity);
+			}
+			session.setAttribute("current_user",current_user);
+			request.setAttribute("current_user",current_user);
+			response.sendRedirect("/WebCovid/JSP_Pages/activite.jsp");
 		}
 
 	}

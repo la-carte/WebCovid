@@ -38,6 +38,19 @@
 	<div class="container">
 		<p>Mes activités :</p>
 		<br>
+		<ul>
+			<%
+				for (int i = 0; i < current_user.getActivities().size(); i++) {
+			%>
+			<li><%=current_user.getActivities().get(i).getName()%></li>
+			<li><%=current_user.getActivities().get(i).getDate()%></li>
+			<li><%=current_user.getActivities().get(i).getHdebut()%></li>
+			<li><%=current_user.getActivities().get(i).getHfin()%></li>
+			<br>
+			<%
+				}
+			%>
+		</ul>
 		<form method="post"
 			action="${pageContext.request.contextPath}/JSP_Pages/newActivité.jsp">
 			<button type="submit" class="btn btn-primary">Ajouter une activité</button>

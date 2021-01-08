@@ -63,14 +63,14 @@
 			<button type="submit">Mes amis</button>
 		</form>
 		<form method="post"
-			action="${pageContext.request.contextPath}/JSP_Pages/activité.jsp">
+			action="${pageContext.request.contextPath}/JSP_Pages/activite.jsp">
 			<button type="submit">Mes activités</button>
 		</form>
 		<%
 			for (int i = 0; i < current_user.getFriends().size(); i++) {
 		%>
 		<%
-			if (current_user.getFriends().get(i).isToCovid()) {
+			if (current_user.getFriends().get(i).isToCovid()== true) {
 		%>
 		<b>Attention ! un ami à vous à recemment eu la Covid-19, veuillez
 			aller vous faire dépister !</b>
