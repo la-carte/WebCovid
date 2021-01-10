@@ -39,7 +39,7 @@ public class BeanServlet extends HttpServlet {
 
 		if (current_user == null) {
 
-			response.sendRedirect("/WebCovid/JSP_Pages/accueil.jsp");
+			response.sendRedirect("/WebCovid/JSP_Pages/connexion.jsp");
 		} else {
 			response.sendRedirect("/WebCovid/JSP_Pages/profil.jsp");
 		}
