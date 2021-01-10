@@ -4,28 +4,8 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
 	<display-name>WebCovid</display-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.htm</welcome-file>
-		<welcome-file>accueil.jsp</welcome-file>
-		<welcome-file>connexion.jsp</welcome-file>
-		<welcome-file>admin.jsp</welcome-file>
-		<welcome-file>user.jsp</welcome-file>
-	</welcome-file-list>
-	<servlet>
-		<servlet-name>InscriptionServlet</servlet-name>
-		<servlet-class>ServletPackage.InscriptionServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>ConnexionServlet</servlet-name>
-		<servlet-class>ServletPackage.ConnexionServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>BeanServlet</servlet-name>
-		<servlet-class>ServletPackage.BeanServlet</servlet-class>
-	</servlet>
-	
+	<error-page>
+		<error-code>404</error-code>
+		<location>/JSP_Pages/404.jsp</location>
+	</error-page>
 </web-app>

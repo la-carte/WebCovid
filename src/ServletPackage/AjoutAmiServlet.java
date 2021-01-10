@@ -1,6 +1,8 @@
 package ServletPackage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,18 +44,17 @@ public class AjoutAmiServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String friendLogin = request.getParameter("login");
 
 		HttpSession session = request.getSession();
+		UserBean current_user = (UserBean) session.getAttribute("current_user");
 		SQLConnector sc = new SQLConnector();
-
 
 		UserBean user = (UserBean) session.getAttribute("current_user");
 		if ((friendLogin != "") && (friendLogin != null)) {
-			sc.addFriendRequest(friendLogin, user.getLogin());
-			
+			sc.addFriendRequest(user.getLogin(), friendLogin);
 		}
-
 		response.sendRedirect("/WebCovid/JSP_Pages/profil.jsp");
 	}
 }

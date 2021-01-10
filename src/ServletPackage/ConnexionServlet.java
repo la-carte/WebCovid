@@ -63,6 +63,7 @@ public class ConnexionServlet extends HttpServlet {
 			friends = sc.getFriends(current_user.getLogin());
 			for(UserBean friend : friends) {
 				current_user.getFriends().add(friend);
+				System.out.println(friend.isToCovid());
 			}
 			
 			activities = sc.getActivities(current_user.getLogin());

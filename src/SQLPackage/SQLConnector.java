@@ -56,6 +56,7 @@ public class SQLConnector {
 		Connection con = connect();
 		// select * from user_database.friend where login="lala" and test="lala"
 		String rqString = "Select loginUser from friend where loginFriend='" + loginUser + "' and isFriend=1";
+		String rq = "Select toCovid from user where login='" + loginUser + "'";
 		ResultSet res = doRequest(rqString);
 		int i = 0;
 		try {
@@ -68,6 +69,7 @@ public class SQLConnector {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 
 		return friends;
 	}
@@ -299,7 +301,9 @@ public class SQLConnector {
 					activities.add(a);
 					System.out.println(i);
 					i++;
-				}	
+				}
+			System.out.println(a);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

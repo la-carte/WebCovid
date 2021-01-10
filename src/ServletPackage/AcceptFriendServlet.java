@@ -58,7 +58,7 @@ public class AcceptFriendServlet extends HttpServlet {
 		
 		friendsRequest= sc.getFriendRequest(current_user.getLogin());
 		for(String friend : friendsRequest) {
-			current_user.getFriendsRequest().add(friend);
+			current_user.getFriendsRequest().remove(loginFriend);
 		}
 		
 		
